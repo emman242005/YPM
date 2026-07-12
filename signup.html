@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up | Young Peacemakers Organization</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/images/logo.png" alt="Young Peacemakers Organization logo" class="logo-img">
+      Young Peacemakers
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="about.html">About</a></li>
+      <li><a href="programs.html">Programs</a></li>
+      <li><a href="teacher-training.html">Teacher Training</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="login.html" class="btn btn-primary nav-cta">Log In</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Registration</span>
+    <h1>Create Your Account</h1>
+    <p class="page-header-lead">Register as a parent/guardian or as a teacher. A one-time registration fee of 1,000 XAF applies to both.</p>
+  </div>
+</section>
+
+<!-- ROLE TOGGLE -->
+<section class="section">
+  <div class="container signup-wrap">
+
+    <div class="role-toggle">
+      <button type="button" class="role-btn active" id="roleParentBtn">I'm a Parent / Guardian</button>
+      <button type="button" class="role-btn" id="roleTeacherBtn">I'm a Teacher</button>
+    </div>
+
+    <!-- PARENT FORM -->
+    <form id="parentForm" class="auth-form">
+      <h3>Parent / Guardian Details</h3>
+      <label for="pFullName">Your Full Name</label>
+      <input type="text" id="pFullName" required>
+
+      <label for="pPhone">Your Phone Number</label>
+      <input type="tel" id="pPhone" required>
+
+      <label for="pEmail">Your Email</label>
+      <input type="email" id="pEmail" required>
+
+      <label for="pPassword">Create a Password</label>
+      <input type="password" id="pPassword" minlength="6" required>
+
+      <h3>Child's Details</h3>
+      <label for="cFullName">Child's Full Name</label>
+      <input type="text" id="cFullName" required>
+
+      <label for="cAge">Child's Age</label>
+      <input type="number" id="cAge" min="3" max="11" required>
+
+      <label for="cSchool">Child's School</label>
+      <input type="text" id="cSchool" required>
+
+      <label for="cProgram">Program</label>
+      <select id="cProgram">
+        <option value="peace_club">Peace Club</option>
+        <option value="summer_camp">Summer Camp</option>
+        <option value="trauma_support">Trauma Healing Support</option>
+      </select>
+
+      <label for="eName">Emergency Contact Name</label>
+      <input type="text" id="eName" required>
+
+      <label for="ePhone">Emergency Contact Phone</label>
+      <input type="tel" id="ePhone" required>
+
+      <label for="birthCert">Upload Child's Birth Certificate (photo or PDF)</label>
+      <input type="file" id="birthCert" accept="image/*,.pdf" required>
+
+      <label class="checkbox-label">
+        <input type="checkbox" required>
+        I consent to my child's participation and to photos being used per the organization's photo policy.
+      </label>
+
+      <button type="submit" class="btn btn-primary">Create Account &amp; Continue to Payment</button>
+      <p class="form-note" id="parentNote"></p>
+    </form>
+
+    <!-- TEACHER FORM -->
+    <form id="teacherForm" class="auth-form hidden">
+      <h3>Teacher Details</h3>
+      <label for="tFullName">Full Name</label>
+      <input type="text" id="tFullName" required>
+
+      <label for="tPhone">Phone Number</label>
+      <input type="tel" id="tPhone" required>
+
+      <label for="tEmail">Email</label>
+      <input type="email" id="tEmail" required>
+
+      <label for="tPassword">Create a Password</label>
+      <input type="password" id="tPassword" minlength="6" required>
+
+      <label for="tSchool">School Name</label>
+      <input type="text" id="tSchool" required>
+
+      <label for="tGrade">Grade Level / Subject Taught</label>
+      <input type="text" id="tGrade">
+
+      <label for="tProof">Upload Proof of Teaching (school ID or appointment letter)</label>
+      <input type="file" id="tProof" accept="image/*,.pdf" required>
+
+      <label for="tCV">Upload Your CV</label>
+      <input type="file" id="tCV" accept=".pdf,.doc,.docx" required>
+
+      <button type="submit" class="btn btn-primary">Create Account &amp; Continue to Payment</button>
+      <p class="form-note" id="teacherNote"></p>
+    </form>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>Young Peacemakers Organization</h4>
+        <p>Kumba, Meme Division, South West Region, Republic of Cameroon</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <p><a href="about.html">About Us</a></p>
+        <p><a href="programs.html">Programs</a></p>
+        <p><a href="get-involved.html">Get Involved</a></p>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <p><a href="contact.html">Contact Us</a></p>
+        <p><a href="mailto:info@youngpeacemakers.org">info@youngpeacemakers.org</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Young Peacemakers Organization. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/main.js"></script>
+<script src="js/signup.js"></script>
+</body>
+</html>

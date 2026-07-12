@@ -1,0 +1,5 @@
+// Supabase connection config
+const SUPABASE_URL = "https://esstgjzxmxhlefiyvonh.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVzc3Rnanp4bXhobGVmaXl2b25oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM4ODUxMTUsImV4cCI6MjA5OTQ2MTExNX0.6385NS-MyxcL0Yp1XmSmli8ZaYzziaM6XmKAzVto8sM";
+
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);

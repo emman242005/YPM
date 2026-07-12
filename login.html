@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Log In | Young Peacemakers Organization</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/images/logo.png" alt="Young Peacemakers Organization logo" class="logo-img">
+      Young Peacemakers
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="about.html">About</a></li>
+      <li><a href="programs.html">Programs</a></li>
+      <li><a href="teacher-training.html">Teacher Training</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li>
+        <div class="nav-auth">
+          <a href="signup.html" class="btn btn-secondary nav-cta">Sign Up</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Welcome Back</span>
+    <h1>Log In to Your Account</h1>
+    <p class="page-header-lead">Access your dashboard as a parent/guardian or teacher.</p>
+  </div>
+</section>
+
+<!-- LOGIN FORM -->
+<section class="section">
+  <div class="container signup-wrap">
+    <form id="loginForm" class="auth-form">
+      <label for="loginEmail">Email Address</label>
+      <input type="email" id="loginEmail" required>
+
+      <label for="loginPassword">Password</label>
+      <input type="password" id="loginPassword" required>
+
+      <button type="submit" class="btn btn-primary">Log In</button>
+      <p class="form-note" id="loginNote"></p>
+      <p class="form-switch">Don't have an account? <a href="signup.html">Sign up here</a>.</p>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>Young Peacemakers Organization</h4>
+        <p>Kumba, Meme Division, South West Region, Republic of Cameroon</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <p><a href="about.html">About Us</a></p>
+        <p><a href="programs.html">Programs</a></p>
+        <p><a href="get-involved.html">Get Involved</a></p>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <p><a href="contact.html">Contact Us</a></p>
+        <p><a href="mailto:info@youngpeacemakers.org">info@youngpeacemakers.org</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Young Peacemakers Organization. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/main.js"></script>
+<script src="js/login.js"></script>
+</body>
+</html>
