@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teacher Dashboard | Young Peacemakers Organization</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/images/logo.png" alt="Young Peacemakers Organization logo" class="logo-img">
+      Young Peacemakers
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="about.html">About</a></li>
+      <li><a href="teacher-training.html">Teacher Training</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><button class="logout-btn" id="logoutBtn">Log Out</button></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Teacher Dashboard</span>
+    <h1 id="welcomeHeading">Welcome</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container dashboard-wrap">
+
+    <div id="statusBanner" class="status-banner status-pending">
+      Loading your registration status...
+    </div>
+
+    <div class="dashboard-card">
+      <h3>Your Information</h3>
+      <div class="info-row"><span class="info-label">School</span><span class="info-value" id="teacherSchool">—</span></div>
+      <div class="info-row"><span class="info-label">Grade / Subject</span><span class="info-value" id="teacherGrade">—</span></div>
+    </div>
+
+    <div class="dashboard-card">
+      <h3>Payment Status</h3>
+      <div class="info-row"><span class="info-label">Status</span><span class="info-value" id="paymentStatus">—</span></div>
+      <a href="payment.html?role=teacher" class="btn btn-primary" id="payNowBtn" style="margin-top: var(--space-sm);">Pay Now (1,000 XAF)</a>
+    </div>
+
+    <div class="dashboard-card">
+      <h3>Training Modules</h3>
+      <p class="placeholder-note">Training modules and certificates are coming soon — check back later.</p>
+    </div>
+
+    <div class="dashboard-card">
+      <h3>Teaching Toolkits</h3>
+      <p class="placeholder-note">Downloadable peace education materials will appear here soon.</p>
+    </div>
+
+    <div class="dashboard-card">
+      <h3>Announcements</h3>
+      <p class="placeholder-note">Announcements from the organization will appear here soon — check back later.</p>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <p>&copy; 2026 Young Peacemakers Organization. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/main.js"></script>
+<script src="js/dashboard-teacher.js"></script>
+</body>
+</html>
