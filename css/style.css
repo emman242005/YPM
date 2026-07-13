@@ -1495,3 +1495,63 @@ p {
   margin: 0;
   font-size: 1.1rem;
 }
+.method-panel {
+  display: none;
+  background-color: var(--color-white);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+}
+
+.method-panel.active {
+  display: block;
+}
+
+/* ==========================================================================
+   DONATE PAGE — CONSISTENT LOGO BOXES
+   ========================================================================== */
+
+.method-tab-btn {
+  padding: 0.9rem;
+}
+
+.method-logo {
+  height: 32px;
+  width: 64px;
+  object-fit: contain;
+  background-color: var(--color-white);
+  border-radius: 6px;
+  padding: 4px;
+}
+
+.method-panel-logo {
+  height: 34px;
+  width: 68px;
+  object-fit: contain;
+  background-color: var(--color-white);
+  border-radius: 6px;
+  padding: 4px;
+  border: 1px solid rgba(27, 58, 107, 0.1);
+}
+
+.method-logo {
+  height: 40px !important;
+  width: 80px !important;
+  object-fit: contain !important;
+}
+
+.method-panel-logo {
+  height: 40px !important;
+  width: 80px !important;
+  object-fit: contain !important;
+}
+
+.amount-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 0.5rem !important;
+}
+
+.amount-btn {
+  width: 100% !important;
+  padding: 1rem 0.5rem !important;
+}

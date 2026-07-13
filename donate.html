@@ -6,6 +6,301 @@
 <title>Donate | Young Peacemakers Organization</title>
 <meta name="description" content="Support Young Peacemakers Organization's work helping children in Kumba, Cameroon heal and become peacemakers.">
 <link rel="stylesheet" href="css/style.css">
+<style>
+  /* ============================================================
+     DONATE PAGE — PREMIUM REDESIGN (self-contained)
+     ============================================================ */
+
+  .donate-hero {
+    background: linear-gradient(160deg, #12253F 0%, #1B3A6B 60%, #24437F 100%);
+    padding: 4.5rem 0 7rem;
+    text-align: center;
+  }
+
+  .donate-hero .eyebrow {
+    color: #E8CD8A;
+  }
+
+  .donate-hero h1 {
+    color: #FFFFFF;
+    margin: 0.6rem 0 0.8rem;
+  }
+
+  .donate-hero p {
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 520px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+  }
+
+  .donate-card {
+    max-width: 620px;
+    margin: -4.5rem auto 0;
+    background-color: #FFFFFF;
+    border-radius: 28px;
+    padding: 2.6rem;
+    box-shadow: 0 30px 60px rgba(18, 37, 63, 0.18);
+    position: relative;
+    z-index: 5;
+  }
+
+  .donate-step-label {
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #8B5E34;
+    margin-bottom: 0.7rem;
+    display: block;
+  }
+
+  .amount-grid-v2 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.7rem;
+    margin-bottom: 1.3rem;
+  }
+
+  .amount-btn-v2 {
+    padding: 1rem 0.4rem;
+    border-radius: 14px;
+    border: 1.5px solid #E4E8EE;
+    background-color: #FAFBFC;
+    font-family: 'Karla', sans-serif;
+    font-weight: 800;
+    font-size: 1.2rem;
+    color: #12253F;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .amount-btn-v2:hover {
+    border-color: #1B3A6B;
+    transform: translateY(-2px);
+  }
+
+  .amount-btn-v2.active {
+    background: linear-gradient(135deg, #1B3A6B, #24437F);
+    border-color: #1B3A6B;
+    color: #FFFFFF;
+    box-shadow: 0 8px 18px rgba(27, 58, 107, 0.28);
+  }
+
+  .custom-amount-v2 {
+    margin-bottom: 1.6rem;
+  }
+
+  .custom-amount-v2 label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #4A5450;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .custom-amount-field {
+    display: flex;
+    align-items: center;
+    border: 1.5px solid #E4E8EE;
+    border-radius: 14px;
+    background-color: #FAFBFC;
+    transition: all 0.15s ease;
+    overflow: hidden;
+  }
+
+  .custom-amount-field:focus-within {
+    border-color: #1B3A6B;
+    box-shadow: 0 0 0 4px rgba(27, 58, 107, 0.12);
+    background-color: #FFFFFF;
+  }
+
+  .custom-amount-field span {
+    padding: 0.9rem 0 0.9rem 1.1rem;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: #8B95A5;
+  }
+
+  .custom-amount-field input {
+    border: none;
+    background: none;
+    padding: 0.9rem 1.1rem;
+    font-size: 1.05rem;
+    font-family: 'Karla', sans-serif;
+    font-weight: 700;
+    width: 100%;
+    color: #12253F;
+  }
+
+  .custom-amount-field input:focus {
+    outline: none;
+  }
+
+  .donate-summary-v2 {
+    background: linear-gradient(135deg, #FBF6EA, #F5EBD3);
+    border: 1px solid #E8CD8A;
+    border-radius: 14px;
+    padding: 0.9rem 1.2rem;
+    margin-bottom: 1.8rem;
+    font-weight: 800;
+    color: #6E4A16;
+    font-size: 1rem;
+  }
+
+  .method-grid-v2 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.7rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .method-card-v2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 0.5rem;
+    border-radius: 16px;
+    border: 1.5px solid #E4E8EE;
+    background-color: #FAFBFC;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .method-card-v2:hover {
+    border-color: #1B3A6B;
+    transform: translateY(-2px);
+  }
+
+  .method-card-v2.active {
+    border-color: #1B3A6B;
+    background-color: #F0F4FA;
+    box-shadow: 0 8px 18px rgba(27, 58, 107, 0.14);
+  }
+
+  .method-card-v2 img {
+    height: 26px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .method-card-v2 span {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #4A5450;
+    text-align: center;
+  }
+
+  .method-panel-v2 {
+    display: none;
+    background-color: #F7F9FB;
+    border-radius: 16px;
+    padding: 1.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .method-panel-v2.active {
+    display: block;
+  }
+
+  .method-panel-v2 .panel-head {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .method-panel-v2 .panel-head img {
+    height: 30px;
+    width: auto;
+  }
+
+  .method-panel-v2 .panel-head h4 {
+    margin: 0;
+    font-size: 1.05rem;
+    color: #12253F;
+  }
+
+  .method-panel-v2 p {
+    color: #4A5450;
+    font-size: 0.92rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .method-panel-v2 input[type="tel"] {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1.5px solid #E4E8EE;
+    border-radius: 12px;
+    font-family: 'Karla', sans-serif;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+
+  .method-panel-v2 input[type="tel"]:focus {
+    outline: none;
+    border-color: #1B3A6B;
+  }
+
+  .donate-cta-btn {
+    width: 100%;
+    padding: 1.05rem;
+    border-radius: 100px;
+    border: none;
+    background: linear-gradient(135deg, #1B3A6B, #24437F);
+    color: #FFFFFF;
+    font-family: 'Karla', sans-serif;
+    font-weight: 800;
+    font-size: 1.05rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .donate-cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px rgba(27, 58, 107, 0.3);
+  }
+
+  .donate-fine-print {
+    font-size: 0.78rem;
+    color: #8B95A5;
+    text-align: center;
+    margin-top: 0.9rem;
+  }
+
+  .trust-strip {
+    max-width: 620px;
+    margin: 1.6rem auto 0;
+    display: flex;
+    justify-content: center;
+    gap: 1.8rem;
+    flex-wrap: wrap;
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #4A5450;
+  }
+
+  @media (max-width: 640px) {
+    .donate-card {
+      margin: -3rem 1rem 0;
+      padding: 1.8rem;
+      border-radius: 22px;
+    }
+    .amount-grid-v2,
+    .method-grid-v2 {
+      gap: 0.5rem;
+    }
+    .method-card-v2 span {
+      font-size: 0.72rem;
+    }
+  }
+</style>
 </head>
 <body>
 
@@ -23,99 +318,103 @@
       <li><a href="programs.html">Programs</a></li>
       <li><a href="get-involved.html">Get Involved</a></li>
       <li><a href="contact.html">Contact</a></li>
-      <li><a href="donate.html" class="btn btn-primary nav-cta">Donate</a></li>
+      <li><a href="donate.html">Donate</a></li>
+      <li>
+        <div class="nav-auth">
+          <a href="login.html" class="btn btn-secondary nav-cta">Log In</a>
+          <a href="signup.html" class="btn btn-primary nav-cta">Sign Up</a>
+        </div>
+      </li>
     </ul>
   </div>
 </nav>
 
-<section class="page-header">
+<!-- HERO -->
+<section class="donate-hero">
   <div class="container">
     <span class="eyebrow">Donate</span>
     <h1>Support Our Work</h1>
-    <p class="page-header-lead">
-      Every donation helps a child heal, learn empathy, and become a
-      peacemaker in their own community.
-    </p>
+    <p>Every donation helps a child heal, learn empathy, and become a peacemaker in their own community.</p>
   </div>
 </section>
 
-<section class="section">
-  <div class="container donate-wrap">
+<!-- DONATION CARD -->
+<div class="donate-card">
 
-    <h3>Choose an Amount</h3>
-    <div class="amount-grid">
-      <button class="amount-btn" data-amount="2">$2</button>
-      <button class="amount-btn" data-amount="5">$5</button>
-      <button class="amount-btn" data-amount="10">$10</button>
-      <button class="amount-btn" data-amount="20">$20</button>
-    </div>
-
-    <div class="custom-amount-wrap">
-      <label for="customAmount">Or Enter Your Own Amount (minimum $2)</label>
-      <div class="custom-amount-input">
-        <span>$</span>
-        <input type="number" id="customAmount" min="2" step="1" placeholder="0">
-      </div>
-    </div>
-
-    <div class="donate-summary" id="donateSummary">
-      Selected amount: $0
-    </div>
-
-    <h3>Choose a Payment Method</h3>
-    <div class="method-tabs">
-      <button class="method-tab-btn active" data-method="paypal">
-        <img src="assets/images/logo3.png" alt="PayPal" class="method-logo">
-        <span>PayPal</span>
-      </button>
-      <button class="method-tab-btn" data-method="momo">
-        <img src="assets/images/logo2.png" alt="MTN Mobile Money" class="method-logo">
-        <span>MTN MoMo</span>
-      </button>
-      <button class="method-tab-btn" data-method="card">
-        <img src="assets/images/logo4.png" alt="Visa / Mastercard" class="method-logo">
-        <span>Visa / Mastercard</span>
-      </button>
-    </div>
-
-    <!-- PAYPAL PANEL -->
-    <div class="method-panel active" id="paypalPanel">
-      <div class="method-panel-header">
-        <img src="assets/images/logo3.png" alt="PayPal" class="method-panel-logo">
-        <h4>Pay with PayPal</h4>
-      </div>
-      <p>You'll be securely redirected to PayPal to complete your donation.</p>
-      <button class="btn btn-primary" id="paypalBtn" style="margin-top: var(--space-sm);">Donate with PayPal</button>
-      <p class="method-note">Placeholder — actual PayPal donate button connects here once the organization's PayPal Business account is set up.</p>
-    </div>
-
-    <!-- MTN MOMO PANEL -->
-    <div class="method-panel" id="momoPanel">
-      <div class="method-panel-header">
-        <img src="assets/images/logo2.png" alt="MTN Mobile Money" class="method-panel-logo">
-        <h4>Pay with MTN Mobile Money</h4>
-      </div>
-      <label for="momoNumber">MTN Mobile Money Number</label>
-      <input type="tel" id="momoNumber" placeholder="6XXXXXXXX" style="width:100%; padding:0.7rem 0.9rem; border:1px solid rgba(27,58,107,0.2); border-radius:8px; margin-top:0.4rem; margin-bottom:1rem;">
-      <button class="btn btn-primary" id="momoBtn">Donate with MTN MoMo</button>
-      <p class="method-note">Placeholder — connects to MTN Mobile Money Collections API once the organization's merchant account is approved.</p>
-    </div>
-
-    <!-- CARD PANEL -->
-    <div class="method-panel" id="cardPanel">
-      <div class="method-panel-header">
-        <img src="assets/images/logo4.png" alt="Visa / Mastercard" class="method-panel-logo">
-        <h4>Pay with Visa / Mastercard</h4>
-      </div>
-      <p>Pay securely with Visa or Mastercard.</p>
-      <button class="btn btn-primary" id="cardBtn" style="margin-top: var(--space-sm);">Donate with Card</button>
-      <p class="method-note">Placeholder — connects to a card payment processor (e.g. Stripe, Flutterwave, or Paystack) once set up.</p>
-    </div>
-
+  <span class="donate-step-label">Step 1 · Choose an Amount</span>
+  <div class="amount-grid-v2">
+    <button class="amount-btn-v2" data-amount="2">$2</button>
+    <button class="amount-btn-v2" data-amount="5">$5</button>
+    <button class="amount-btn-v2" data-amount="10">$10</button>
+    <button class="amount-btn-v2" data-amount="20">$20</button>
   </div>
-</section>
 
-<section class="section section-alt">
+  <div class="custom-amount-v2">
+    <label for="customAmount">Or enter your own amount (minimum $2)</label>
+    <div class="custom-amount-field">
+      <span>$</span>
+      <input type="number" id="customAmount" min="2" step="1" placeholder="0">
+    </div>
+  </div>
+
+  <div class="donate-summary-v2" id="donateSummary">Selected amount: $0</div>
+
+  <span class="donate-step-label">Step 2 · Choose a Payment Method</span>
+  <div class="method-grid-v2">
+    <div class="method-card-v2 active" data-method="paypal">
+      <img src="assets/images/logo3.png" alt="PayPal">
+      <span>PayPal</span>
+    </div>
+    <div class="method-card-v2" data-method="momo">
+      <img src="assets/images/logo2.png" alt="MTN Mobile Money">
+      <span>MTN MoMo</span>
+    </div>
+    <div class="method-card-v2" data-method="card">
+      <img src="assets/images/logo4.png" alt="Visa / Mastercard">
+      <span>Visa / Mastercard</span>
+    </div>
+  </div>
+
+  <!-- PAYPAL PANEL -->
+  <div class="method-panel-v2 active" id="paypalPanel">
+    <div class="panel-head">
+      <img src="assets/images/logo3.png" alt="PayPal">
+      <h4>Pay with PayPal</h4>
+    </div>
+    <p>You'll be securely redirected to PayPal to complete your donation.</p>
+  </div>
+
+  <!-- MOMO PANEL -->
+  <div class="method-panel-v2" id="momoPanel">
+    <div class="panel-head">
+      <img src="assets/images/logo2.png" alt="MTN Mobile Money">
+      <h4>Pay with MTN Mobile Money</h4>
+    </div>
+    <p>Enter the phone number you'd like to be charged.</p>
+    <input type="tel" id="momoNumber" placeholder="6XXXXXXXX">
+  </div>
+
+  <!-- CARD PANEL -->
+  <div class="method-panel-v2" id="cardPanel">
+    <div class="panel-head">
+      <img src="assets/images/logo4.png" alt="Visa / Mastercard">
+      <h4>Pay with Visa / Mastercard</h4>
+    </div>
+    <p>Pay securely with your Visa or Mastercard.</p>
+  </div>
+
+  <button class="donate-cta-btn" id="donateSubmitBtn">Donate Now</button>
+  <p class="donate-fine-print">🔒 Secure payment. Your information is never shared.</p>
+</div>
+
+<div class="trust-strip">
+  <span class="trust-item">✅ Registered Non-Profit</span>
+  <span class="trust-item">🔒 Secure Checkout</span>
+  <span class="trust-item">📍 Kumba, Cameroon</span>
+</div>
+
+<!-- ACCOUNTABILITY -->
+<section class="section section-alt" style="margin-top: 3rem;">
   <div class="container legal-block">
     <span class="eyebrow">Accountability</span>
     <h2>Where Your Donation Goes</h2>
