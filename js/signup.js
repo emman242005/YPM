@@ -35,6 +35,7 @@ if (parentForm) {
     const phone = document.getElementById('pPhone').value;
     const email = document.getElementById('pEmail').value;
     const password = document.getElementById('pPassword').value;
+    const idCardFile = document.getElementById('pIdCard').files[0];
 
     const childName = document.getElementById('cFullName').value;
     const childAge = document.getElementById('cAge').value;
@@ -64,6 +65,16 @@ if (parentForm) {
 
       if (uploadError) throw uploadError;
 
+      // 2b. Upload parent's ID card to private storage
+      const idExt = idCardFile.name.split('.').pop();
+      const idPath = `${userId}/id-card.${idExt}`;
+
+      const { error: idUploadError } = await supabaseClient.storage
+        .from('child-documents')
+        .upload(idPath, idCardFile, { upsert: true });
+
+      if (idUploadError) throw idUploadError;
+
       // 3. Insert parent record
       const { error: parentInsertError } = await supabaseClient
         .from('parents')
@@ -71,7 +82,8 @@ if (parentForm) {
           id: userId,
           full_name: fullName,
           phone: phone,
-          email: email
+          email: email,
+          id_card_url: idPath
         });
 
       if (parentInsertError) throw parentInsertError;
