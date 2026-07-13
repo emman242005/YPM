@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Donate | Young Peacemakers Organization</title>
+<meta name="description" content="Support Young Peacemakers Organization's work helping children in Kumba, Cameroon heal and become peacemakers.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/images/logo.png" alt="Young Peacemakers Organization logo" class="logo-img">
+      Young Peacemakers
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="about.html">About</a></li>
+      <li><a href="programs.html">Programs</a></li>
+      <li><a href="get-involved.html">Get Involved</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="donate.html" class="btn btn-primary nav-cta">Donate</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Donate</span>
+    <h1>Support Our Work</h1>
+    <p class="page-header-lead">
+      Every donation helps a child heal, learn empathy, and become a
+      peacemaker in their own community.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container donate-wrap">
+
+    <h3>Choose an Amount</h3>
+    <div class="amount-grid">
+      <button class="amount-btn" data-amount="2">$2</button>
+      <button class="amount-btn" data-amount="5">$5</button>
+      <button class="amount-btn" data-amount="10">$10</button>
+      <button class="amount-btn" data-amount="20">$20</button>
+    </div>
+
+    <div class="custom-amount-wrap">
+      <label for="customAmount">Or Enter Your Own Amount (minimum $2)</label>
+      <div class="custom-amount-input">
+        <span>$</span>
+        <input type="number" id="customAmount" min="2" step="1" placeholder="0">
+      </div>
+    </div>
+
+    <div class="donate-summary" id="donateSummary">
+      Selected amount: $0
+    </div>
+
+    <h3>Choose a Payment Method</h3>
+    <div class="method-tabs">
+      <button class="method-tab-btn active" data-method="paypal">
+        <img src="assets/images/logo3.png" alt="PayPal" class="method-logo">
+        <span>PayPal</span>
+      </button>
+      <button class="method-tab-btn" data-method="momo">
+        <img src="assets/images/logo2.png" alt="MTN Mobile Money" class="method-logo">
+        <span>MTN MoMo</span>
+      </button>
+      <button class="method-tab-btn" data-method="card">
+        <img src="assets/images/logo4.png" alt="Visa / Mastercard" class="method-logo">
+        <span>Visa / Mastercard</span>
+      </button>
+    </div>
+
+    <!-- PAYPAL PANEL -->
+    <div class="method-panel active" id="paypalPanel">
+      <div class="method-panel-header">
+        <img src="assets/images/logo3.png" alt="PayPal" class="method-panel-logo">
+        <h4>Pay with PayPal</h4>
+      </div>
+      <p>You'll be securely redirected to PayPal to complete your donation.</p>
+      <button class="btn btn-primary" id="paypalBtn" style="margin-top: var(--space-sm);">Donate with PayPal</button>
+      <p class="method-note">Placeholder — actual PayPal donate button connects here once the organization's PayPal Business account is set up.</p>
+    </div>
+
+    <!-- MTN MOMO PANEL -->
+    <div class="method-panel" id="momoPanel">
+      <div class="method-panel-header">
+        <img src="assets/images/logo2.png" alt="MTN Mobile Money" class="method-panel-logo">
+        <h4>Pay with MTN Mobile Money</h4>
+      </div>
+      <label for="momoNumber">MTN Mobile Money Number</label>
+      <input type="tel" id="momoNumber" placeholder="6XXXXXXXX" style="width:100%; padding:0.7rem 0.9rem; border:1px solid rgba(27,58,107,0.2); border-radius:8px; margin-top:0.4rem; margin-bottom:1rem;">
+      <button class="btn btn-primary" id="momoBtn">Donate with MTN MoMo</button>
+      <p class="method-note">Placeholder — connects to MTN Mobile Money Collections API once the organization's merchant account is approved.</p>
+    </div>
+
+    <!-- CARD PANEL -->
+    <div class="method-panel" id="cardPanel">
+      <div class="method-panel-header">
+        <img src="assets/images/logo4.png" alt="Visa / Mastercard" class="method-panel-logo">
+        <h4>Pay with Visa / Mastercard</h4>
+      </div>
+      <p>Pay securely with Visa or Mastercard.</p>
+      <button class="btn btn-primary" id="cardBtn" style="margin-top: var(--space-sm);">Donate with Card</button>
+      <p class="method-note">Placeholder — connects to a card payment processor (e.g. Stripe, Flutterwave, or Paystack) once set up.</p>
+    </div>
+
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container legal-block">
+    <span class="eyebrow">Accountability</span>
+    <h2>Where Your Donation Goes</h2>
+    <p>
+      As a registered non-profit under Cameroon Law No. 90/053, every
+      donation is strictly non-distributable and used only to fund
+      trauma healing support, teacher training, peace clubs, and summer
+      camps. Bank withdrawals require joint signatures from the
+      President and Treasurer.
+    </p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>Young Peacemakers Organization</h4>
+        <p>Kumba, Meme Division, South West Region, Republic of Cameroon</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <p><a href="about.html">About Us</a></p>
+        <p><a href="programs.html">Programs</a></p>
+        <p><a href="get-involved.html">Get Involved</a></p>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <p><a href="contact.html">Contact Us</a></p>
+        <p><a href="mailto:info@youngpeacemakers.org">info@youngpeacemakers.org</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Young Peacemakers Organization. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/donate.js"></script>
+</body>
+</html>

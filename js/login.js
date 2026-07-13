@@ -42,6 +42,17 @@ if (loginForm) {
         return;
       }
 
+      const { data: adminData } = await supabaseClient
+        .from('admins')
+        .select('id')
+        .eq('id', userId)
+        .single();
+
+      if (adminData) {
+        window.location.href = "admin-parents.html";
+        return;
+      }
+
       loginNote.textContent = "Account found, but no profile data matched. Contact support.";
 
     } catch (err) {
