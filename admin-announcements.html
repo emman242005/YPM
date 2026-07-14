@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Payments | Admin</title>
+<title>Announcements | Admin</title>
 <link rel="icon" type="image/png" href="assets/images/logo.png">
 <link rel="stylesheet" href="css/style.css">
 </head>
@@ -40,53 +40,36 @@
 <section class="page-header">
   <div class="container">
     <span class="eyebrow">Admin Dashboard</span>
-    <h1>💰 Payments</h1>
+    <h1>📢 Announcements</h1>
   </div>
 </section>
 
 <section class="section">
-  <div class="container dashboard-wrap" style="max-width: 960px;">
+  <div class="container dashboard-wrap" style="max-width: 800px;">
 
-    <div class="range-buttons">
-      <button class="range-btn active" data-range="today">Today</button>
-      <button class="range-btn" data-range="week">This Week</button>
-      <button class="range-btn" data-range="month">This Month</button>
-      <button class="range-btn" data-range="year">This Year</button>
-      <button class="range-btn" data-range="all">All Time</button>
-    </div>
+    <form class="announcement-form" id="announcementForm">
+      <h3>Post a New Announcement</h3>
 
-    <div class="stats-cards-grid">
-      <div class="stat-card gold">
-        <div class="stat-number" id="statPaidParents">0</div>
-        <div class="stat-label">Parents Paid</div>
-      </div>
-      <div class="stat-card gold">
-        <div class="stat-number" id="statPaidTeachers">0</div>
-        <div class="stat-label">Teachers Paid</div>
-      </div>
-      <div class="stat-card gold">
-        <div class="stat-number" id="statUnpaid">0</div>
-        <div class="stat-label">Unpaid</div>
-      </div>
-      <div class="stat-card gold">
-        <div class="stat-number" id="statRevenue">0 XAF</div>
-        <div class="stat-label">Total Collected</div>
-      </div>
-    </div>
+      <label for="annTitle">Title</label>
+      <input type="text" id="annTitle" required>
 
-    <div class="chart-row">
-      <div class="chart-card">
-        <h4>Revenue Over Time</h4>
-        <div class="chart-canvas-wrap">
-          <canvas id="revenueChart"></canvas>
-        </div>
-      </div>
-      <div class="chart-card">
-        <h4>Paid vs Unpaid</h4>
-        <div class="chart-canvas-wrap">
-          <canvas id="paidChart"></canvas>
-        </div>
-      </div>
+      <label for="annContent">Message</label>
+      <textarea id="annContent" rows="4" required></textarea>
+
+      <label for="annAudience">Who should see this?</label>
+      <select id="annAudience">
+        <option value="both">Parents &amp; Teachers</option>
+        <option value="parents">Parents Only</option>
+        <option value="teachers">Teachers Only</option>
+      </select>
+
+      <button type="submit" class="btn btn-primary">Post Announcement</button>
+      <p class="form-note" id="announcementNote"></p>
+    </form>
+
+    <h3 style="margin-bottom: var(--space-sm);">All Announcements</h3>
+    <div id="announcementsList">
+      <p class="empty-note">Loading announcements...</p>
     </div>
 
   </div>
@@ -100,10 +83,9 @@
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabase-config.js"></script>
 <script src="js/admin-common.js"></script>
-<script src="js/admin-payments.js"></script>
+<script src="js/admin-announcements.js"></script>
 </body>
 </html>

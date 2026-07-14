@@ -5,6 +5,7 @@ const roleParentBtn = document.getElementById('roleParentBtn');
 const roleTeacherBtn = document.getElementById('roleTeacherBtn');
 const parentForm = document.getElementById('parentForm');
 const teacherForm = document.getElementById('teacherForm');
+const otpScreen = document.getElementById('otpScreen');
 
 if (roleParentBtn && roleTeacherBtn) {
   roleParentBtn.addEventListener('click', () => {
@@ -12,6 +13,7 @@ if (roleParentBtn && roleTeacherBtn) {
     roleTeacherBtn.classList.remove('active');
     parentForm.classList.remove('hidden');
     teacherForm.classList.add('hidden');
+    otpScreen.classList.add('hidden');
   });
 
   roleTeacherBtn.addEventListener('click', () => {
@@ -19,11 +21,18 @@ if (roleParentBtn && roleTeacherBtn) {
     roleParentBtn.classList.remove('active');
     teacherForm.classList.remove('hidden');
     parentForm.classList.add('hidden');
+    otpScreen.classList.add('hidden');
   });
 }
 
+// Holds form data between Phase 1 (account creation) and Phase 2 (after OTP verified)
+let pendingRole = null;
+let pendingEmail = null;
+let pendingParentData = null;
+let pendingTeacherData = null;
+
 // ==========================================================================
-// PARENT SIGNUP
+// PARENT SIGNUP — PHASE 1: create account, send to OTP screen
 // ==========================================================================
 if (parentForm) {
   parentForm.addEventListener('submit', async (e) => {
@@ -46,68 +55,25 @@ if (parentForm) {
     const birthCertFile = document.getElementById('birthCert').files[0];
 
     try {
-      // 1. Create the auth account
       const { data: authData, error: authError } = await supabaseClient.auth.signUp({
         email: email,
         password: password
       });
 
       if (authError) throw authError;
-      const userId = authData.user.id;
 
-      // 2. Upload birth certificate to private storage
-      const fileExt = birthCertFile.name.split('.').pop();
-      const filePath = `${userId}/birth-certificate.${fileExt}`;
+      pendingRole = 'parent';
+      pendingEmail = email;
+      pendingParentData = {
+        fullName, phone, email, idCardFile,
+        childName, childAge, childSchool, program,
+        emergencyName, emergencyPhone, birthCertFile
+      };
 
-      const { error: uploadError } = await supabaseClient.storage
-        .from('child-documents')
-        .upload(filePath, birthCertFile, { upsert: true });
-
-      if (uploadError) throw uploadError;
-
-      // 2b. Upload parent's ID card to private storage
-      const idExt = idCardFile.name.split('.').pop();
-      const idPath = `${userId}/id-card.${idExt}`;
-
-      const { error: idUploadError } = await supabaseClient.storage
-        .from('child-documents')
-        .upload(idPath, idCardFile, { upsert: true });
-
-      if (idUploadError) throw idUploadError;
-
-      // 3. Insert parent record
-      const { error: parentInsertError } = await supabaseClient
-        .from('parents')
-        .insert({
-          id: userId,
-          full_name: fullName,
-          phone: phone,
-          email: email,
-          id_card_url: idPath
-        });
-
-      if (parentInsertError) throw parentInsertError;
-
-      // 4. Insert child record (linked to parent)
-      const { error: childInsertError } = await supabaseClient
-        .from('children')
-        .insert({
-          parent_id: userId,
-          full_name: childName,
-          age: childAge,
-          school: childSchool,
-          program: program,
-          emergency_contact_name: emergencyName,
-          emergency_contact_phone: emergencyPhone,
-          birth_certificate_url: filePath
-        });
-
-      if (childInsertError) throw childInsertError;
-
-      note.textContent = "Account created! Redirecting to payment...";
-      setTimeout(() => {
-        window.location.href = "payment.html?role=parent";
-      }, 1500);
+      document.getElementById('otpEmailDisplay').textContent = email;
+      parentForm.classList.add('hidden');
+      otpScreen.classList.remove('hidden');
+      note.textContent = "";
 
     } catch (err) {
       note.textContent = "Error: " + err.message;
@@ -117,7 +83,7 @@ if (parentForm) {
 }
 
 // ==========================================================================
-// TEACHER SIGNUP
+// TEACHER SIGNUP — PHASE 1: create account, send to OTP screen
 // ==========================================================================
 if (teacherForm) {
   teacherForm.addEventListener('submit', async (e) => {
@@ -141,48 +107,127 @@ if (teacherForm) {
       });
 
       if (authError) throw authError;
-      const userId = authData.user.id;
 
-      // Upload proof of teaching
-      const proofExt = proofFile.name.split('.').pop();
-      const proofPath = `${userId}/proof-of-teaching.${proofExt}`;
-      const { error: proofUploadError } = await supabaseClient.storage
-        .from('teacher-documents')
-        .upload(proofPath, proofFile, { upsert: true });
-      if (proofUploadError) throw proofUploadError;
+      pendingRole = 'teacher';
+      pendingEmail = email;
+      pendingTeacherData = {
+        fullName, phone, email, school, grade, proofFile, cvFile
+      };
 
-      // Upload CV
-      const cvExt = cvFile.name.split('.').pop();
-      const cvPath = `${userId}/cv.${cvExt}`;
-      const { error: cvUploadError } = await supabaseClient.storage
-        .from('teacher-documents')
-        .upload(cvPath, cvFile, { upsert: true });
-      if (cvUploadError) throw cvUploadError;
-
-      // Insert teacher record
-      const { error: teacherInsertError } = await supabaseClient
-        .from('teachers')
-        .insert({
-          id: userId,
-          full_name: fullName,
-          phone: phone,
-          email: email,
-          school: school,
-          grade_level: grade,
-          proof_of_teaching_url: proofPath,
-          cv_url: cvPath
-        });
-
-      if (teacherInsertError) throw teacherInsertError;
-
-      note.textContent = "Account created! Redirecting to payment...";
-      setTimeout(() => {
-        window.location.href = "payment.html?role=teacher";
-      }, 1500);
+      document.getElementById('otpEmailDisplay').textContent = email;
+      teacherForm.classList.add('hidden');
+      otpScreen.classList.remove('hidden');
+      note.textContent = "";
 
     } catch (err) {
       note.textContent = "Error: " + err.message;
       console.error(err);
     }
   });
+}
+
+// ==========================================================================
+// OTP VERIFICATION — PHASE 2: verify code, then upload docs + insert records
+// ==========================================================================
+const otpSubmitBtn = document.getElementById('otpSubmitBtn');
+const otpNote = document.getElementById('otpNote');
+
+if (otpSubmitBtn) {
+  otpSubmitBtn.addEventListener('click', async () => {
+    const code = document.getElementById('otpCode').value.trim();
+
+    if (!code || code.length < 6) {
+      otpNote.textContent = "Please enter the full code.";
+      return;
+    }
+
+    otpNote.textContent = "Verifying...";
+
+    try {
+      const { data, error } = await supabaseClient.auth.verifyOtp({
+        email: pendingEmail,
+        token: code,
+        type: 'signup'
+      });
+
+      if (error) throw error;
+
+      const userId = data.user.id;
+      otpNote.textContent = "Email verified! Finishing your registration...";
+
+      if (pendingRole === 'parent') {
+        await finishParentRegistration(userId);
+      } else if (pendingRole === 'teacher') {
+        await finishTeacherRegistration(userId);
+      }
+
+    } catch (err) {
+      otpNote.textContent = "Error: " + err.message;
+      console.error(err);
+    }
+  });
+}
+
+async function finishParentRegistration(userId) {
+  const d = pendingParentData;
+
+  const fileExt = d.birthCertFile.name.split('.').pop();
+  const filePath = `${userId}/birth-certificate.${fileExt}`;
+  const { error: uploadError } = await supabaseClient.storage
+    .from('child-documents')
+    .upload(filePath, d.birthCertFile, { upsert: true });
+  if (uploadError) { otpNote.textContent = "Error: " + uploadError.message; return; }
+
+  const idExt = d.idCardFile.name.split('.').pop();
+  const idPath = `${userId}/id-card.${idExt}`;
+  const { error: idUploadError } = await supabaseClient.storage
+    .from('child-documents')
+    .upload(idPath, d.idCardFile, { upsert: true });
+  if (idUploadError) { otpNote.textContent = "Error: " + idUploadError.message; return; }
+
+  const { error: parentInsertError } = await supabaseClient
+    .from('parents')
+    .insert({ id: userId, full_name: d.fullName, phone: d.phone, email: d.email, id_card_url: idPath });
+  if (parentInsertError) { otpNote.textContent = "Error: " + parentInsertError.message; return; }
+
+  const { error: childInsertError } = await supabaseClient
+    .from('children')
+    .insert({
+      parent_id: userId, full_name: d.childName, age: d.childAge, school: d.childSchool,
+      program: d.program, emergency_contact_name: d.emergencyName,
+      emergency_contact_phone: d.emergencyPhone, birth_certificate_url: filePath
+    });
+  if (childInsertError) { otpNote.textContent = "Error: " + childInsertError.message; return; }
+
+  otpNote.textContent = "All done! Redirecting to payment...";
+  setTimeout(() => { window.location.href = "payment.html?role=parent"; }, 1200);
+}
+
+async function finishTeacherRegistration(userId) {
+  const d = pendingTeacherData;
+
+  const proofExt = d.proofFile.name.split('.').pop();
+  const proofPath = `${userId}/proof-of-teaching.${proofExt}`;
+  const { error: proofUploadError } = await supabaseClient.storage
+    .from('teacher-documents')
+    .upload(proofPath, d.proofFile, { upsert: true });
+  if (proofUploadError) { otpNote.textContent = "Error: " + proofUploadError.message; return; }
+
+  const cvExt = d.cvFile.name.split('.').pop();
+  const cvPath = `${userId}/cv.${cvExt}`;
+  const { error: cvUploadError } = await supabaseClient.storage
+    .from('teacher-documents')
+    .upload(cvPath, d.cvFile, { upsert: true });
+  if (cvUploadError) { otpNote.textContent = "Error: " + cvUploadError.message; return; }
+
+  const { error: teacherInsertError } = await supabaseClient
+    .from('teachers')
+    .insert({
+      id: userId, full_name: d.fullName, phone: d.phone, email: d.email,
+      school: d.school, grade_level: d.grade, proof_of_teaching_url: proofPath, cv_url: cvPath
+    });
+  if (teacherInsertError) { otpNote.textContent = "Error: " + teacherInsertError.message; return; }
+
+  otpNote.textContent = "All done! Redirecting to payment...";
+  setTimeout(() => { window.location.href = "payment.html?role=teacher"; }, 1200);
 }

@@ -103,6 +103,19 @@
       <p class="form-note" id="parentNote"></p>
     </form>
 
+    
+    <!-- OTP VERIFICATION -->
+    <div id="otpScreen" class="auth-form hidden">
+      <h3>Verify Your Email</h3>
+      <p style="font-size: 0.9rem; color: var(--color-text-soft); margin-bottom: var(--space-sm);">
+        We've sent a 6-digit code to <strong id="otpEmailDisplay"></strong>. Enter it below to continue.
+      </p>
+      <label for="otpCode">Verification Code</label>
+      <input type="text" id="otpCode" maxlength="8" placeholder="123456" style="letter-spacing: 4px; font-size: 1.3rem; text-align: center;">
+      <button type="button" class="btn btn-primary" id="otpSubmitBtn">Verify &amp; Continue</button>
+      <p class="form-note" id="otpNote"></p>
+    </div>
+
     <!-- TEACHER FORM -->
     <form id="teacherForm" class="auth-form hidden">
       <h3>Teacher Details</h3>

@@ -27,7 +27,9 @@ async function loadTeacherDashboard() {
     banner.textContent = "Your registration is approved!";
     banner.className = "status-banner status-approved";
   } else if (teacher.verification_status === 'rejected') {
-    banner.textContent = "Your registration was not approved. Please contact us to resolve this.";
+    banner.textContent = teacher.rejection_reason
+      ? `Your registration was not approved: ${teacher.rejection_reason}`
+      : "Your registration was not approved. Please contact us to resolve this.";
     banner.className = "status-banner status-rejected";
   }
 
@@ -37,6 +39,26 @@ async function loadTeacherDashboard() {
   document.getElementById('paymentStatus').textContent = teacher.payment_status === 'paid' ? 'Paid' : 'Not Paid';
   if (teacher.payment_status === 'paid') {
     document.getElementById('payNowBtn').style.display = 'none';
+  }
+
+  const { data: announcements } = await supabaseClient
+    .from('announcements')
+    .select('*')
+    .in('audience', ['teachers', 'both'])
+    .order('created_at', { ascending: false })
+    .limit(5);
+
+  const feed = document.getElementById('announcementsFeed');
+  if (announcements && announcements.length > 0) {
+    feed.innerHTML = announcements.map(a => `
+      <div class="announcement-card">
+        <h4>${a.title}</h4>
+        <div class="announcement-meta">${new Date(a.created_at).toLocaleDateString()}</div>
+        <p>${a.content}</p>
+      </div>
+    `).join('');
+  } else {
+    feed.innerHTML = '<p class="placeholder-note">No announcements right now — check back later.</p>';
   }
 }
 

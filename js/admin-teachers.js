@@ -36,13 +36,21 @@ async function loadTeachers() {
       <div class="info-row"><span class="info-label">School</span><span class="info-value">${teacher.school}</span></div>
       <div class="info-row"><span class="info-label">Grade/Subject</span><span class="info-value">${teacher.grade_level || '—'}</span></div>
       <div class="info-row"><span class="info-label">Status</span><span class="info-value">${teacher.verification_status}</span></div>
+      ${teacher.verification_status === 'rejected' && teacher.rejection_reason ? `
+        <div class="info-row"><span class="info-label">Rejection Reason</span><span class="info-value">${teacher.rejection_reason}</span></div>
+      ` : ''}
       <div class="doc-links">
         ${proofUrl ? `<a href="${proofUrl}" target="_blank">View Proof of Teaching</a>` : '<span class="empty-note">No proof uploaded</span>'}
         ${cvUrl ? `<a href="${cvUrl}" target="_blank">View CV</a>` : '<span class="empty-note">No CV uploaded</span>'}
       </div>
       <div class="admin-actions">
-        <button class="btn btn-approve btn-small" data-id="${teacher.id}" data-action="approved">Approve</button>
-        <button class="btn btn-reject btn-small" data-id="${teacher.id}" data-action="rejected">Reject</button>
+        <button class="btn btn-approve btn-small" data-id="${teacher.id}" data-action="approved">✅ Approve</button>
+        <button class="btn btn-reject btn-small reject-open-btn" data-id="${teacher.id}">❌ Reject</button>
+      </div>
+      <div class="reject-reason-box" id="rejectBox-${teacher.id}" style="display:none;">
+        <label>Reason for rejection (shown to the teacher)</label>
+        <textarea class="reject-reason-input" rows="2" placeholder="e.g. CV file could not be opened, please re-upload"></textarea>
+        <button class="btn btn-reject btn-small confirm-reject-btn" data-id="${teacher.id}">Confirm Rejection</button>
       </div>
     `;
     panel.appendChild(card);
@@ -52,7 +60,26 @@ async function loadTeachers() {
     btn.addEventListener('click', async () => {
       const { error } = await supabaseClient
         .from('teachers')
-        .update({ verification_status: btn.dataset.action })
+        .update({ verification_status: btn.dataset.action, rejection_reason: null })
+        .eq('id', btn.dataset.id);
+      if (error) alert('Error: ' + error.message);
+      else { loadTeachers(); updateNotificationCounts(); }
+    });
+  });
+
+  panel.querySelectorAll('.reject-open-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.getElementById(`rejectBox-${btn.dataset.id}`).style.display = 'block';
+    });
+  });
+
+  panel.querySelectorAll('.confirm-reject-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const box = document.getElementById(`rejectBox-${btn.dataset.id}`);
+      const reason = box.querySelector('.reject-reason-input').value.trim();
+      const { error } = await supabaseClient
+        .from('teachers')
+        .update({ verification_status: 'rejected', rejection_reason: reason })
         .eq('id', btn.dataset.id);
       if (error) alert('Error: ' + error.message);
       else { loadTeachers(); updateNotificationCounts(); }

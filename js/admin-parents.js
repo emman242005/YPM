@@ -38,13 +38,21 @@ async function loadParents() {
       <div class="info-row"><span class="info-label">School</span><span class="info-value">${child ? child.school : '—'}</span></div>
       <div class="info-row"><span class="info-label">Program</span><span class="info-value">${child ? child.program : '—'}</span></div>
       <div class="info-row"><span class="info-label">Status</span><span class="info-value">${parent.verification_status}</span></div>
+      ${parent.verification_status === 'rejected' && parent.rejection_reason ? `
+        <div class="info-row"><span class="info-label">Rejection Reason</span><span class="info-value">${parent.rejection_reason}</span></div>
+      ` : ''}
       <div class="doc-links">
         ${idCardUrl ? `<a href="${idCardUrl}" target="_blank">View Parent ID Card</a>` : '<span class="empty-note">No ID card</span>'}
         ${birthCertUrl ? `<a href="${birthCertUrl}" target="_blank">View Birth Certificate</a>` : '<span class="empty-note">No birth certificate</span>'}
       </div>
       <div class="admin-actions">
-        <button class="btn btn-approve btn-small" data-id="${parent.id}" data-action="approved">Approve</button>
-        <button class="btn btn-reject btn-small" data-id="${parent.id}" data-action="rejected">Reject</button>
+        <button class="btn btn-approve btn-small" data-id="${parent.id}" data-action="approved">✅ Approve</button>
+        <button class="btn btn-reject btn-small reject-open-btn" data-id="${parent.id}">❌ Reject</button>
+      </div>
+      <div class="reject-reason-box" id="rejectBox-${parent.id}" style="display:none;">
+        <label>Reason for rejection (shown to the parent)</label>
+        <textarea class="reject-reason-input" rows="2" placeholder="e.g. Birth certificate image is unclear, please re-upload"></textarea>
+        <button class="btn btn-reject btn-small confirm-reject-btn" data-id="${parent.id}">Confirm Rejection</button>
       </div>
     `;
     panel.appendChild(card);
@@ -54,7 +62,26 @@ async function loadParents() {
     btn.addEventListener('click', async () => {
       const { error } = await supabaseClient
         .from('parents')
-        .update({ verification_status: btn.dataset.action })
+        .update({ verification_status: btn.dataset.action, rejection_reason: null })
+        .eq('id', btn.dataset.id);
+      if (error) alert('Error: ' + error.message);
+      else { loadParents(); updateNotificationCounts(); }
+    });
+  });
+
+  panel.querySelectorAll('.reject-open-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.getElementById(`rejectBox-${btn.dataset.id}`).style.display = 'block';
+    });
+  });
+
+  panel.querySelectorAll('.confirm-reject-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const box = document.getElementById(`rejectBox-${btn.dataset.id}`);
+      const reason = box.querySelector('.reject-reason-input').value.trim();
+      const { error } = await supabaseClient
+        .from('parents')
+        .update({ verification_status: 'rejected', rejection_reason: reason })
         .eq('id', btn.dataset.id);
       if (error) alert('Error: ' + error.message);
       else { loadParents(); updateNotificationCounts(); }
