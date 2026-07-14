@@ -8,6 +8,18 @@ if (navToggle && navLinks) {
   });
 }
 
+// Logo spin-in on load, then settle into a gentle float
+document.addEventListener('DOMContentLoaded', () => {
+  const navLogo = document.querySelector('.logo-img');
+  if (navLogo) {
+    navLogo.classList.add('logo-spin-in');
+    navLogo.addEventListener('animationend', () => {
+      navLogo.classList.remove('logo-spin-in');
+      navLogo.classList.add('logo-float');
+    }, { once: true });
+  }
+});
+
 // Contact form (frontend-only for now — no backend connected yet)
 const contactForm = document.getElementById('contactForm');
 const formNote = document.getElementById('formNote');

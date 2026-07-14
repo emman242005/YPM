@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Donate | Young Peacemakers Organization</title>
+<link rel="icon" type="image/png" href="assets/images/logo.png">
 <meta name="description" content="Support Young Peacemakers Organization's work helping children in Kumba, Cameroon heal and become peacemakers.">
 <link rel="stylesheet" href="css/style.css">
 <style>
@@ -12,9 +13,31 @@
      ============================================================ */
 
   .donate-hero {
-    background: linear-gradient(160deg, #12253F 0%, #1B3A6B 60%, #24437F 100%);
+    position: relative;
+    overflow: hidden;
     padding: 4.5rem 0 7rem;
     text-align: center;
+  }
+
+  .donate-hero-bg-image {
+    position: absolute;
+    inset: 0;
+    background-image: url('assets/images/pic12.png');
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+  }
+
+  .donate-hero-bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(18, 37, 63, 0.55) 0%, rgba(27, 58, 107, 0.55) 60%, rgba(36, 67, 127, 0.75) 100%);
+    z-index: 1;
+  }
+
+  .donate-hero > .container {
+    position: relative;
+    z-index: 2;
   }
 
   .donate-hero .eyebrow {
@@ -300,6 +323,32 @@
       font-size: 0.72rem;
     }
   }
+
+  .accountability-section {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .accountability-bg-image {
+    position: absolute;
+    inset: 0;
+    background-image: url('assets/images/pic13.png');
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+  }
+
+  .accountability-bg-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(239, 234, 224, 0.45);
+    z-index: 1;
+  }
+
+  .accountability-section > .legal-block {
+    position: relative;
+    z-index: 2;
+  }
 </style>
 </head>
 <body>
@@ -331,6 +380,8 @@
 
 <!-- HERO -->
 <section class="donate-hero">
+  <div class="donate-hero-bg-image"></div>
+  <div class="donate-hero-bg-overlay"></div>
   <div class="container">
     <span class="eyebrow">Donate</span>
     <h1>Support Our Work</h1>
@@ -410,7 +461,9 @@
 
 
 <!-- ACCOUNTABILITY -->
-<section class="section section-alt" style="margin-top: 3rem;">
+<section class="section section-alt accountability-section" style="margin-top: 3rem;">
+  <div class="accountability-bg-image"></div>
+  <div class="accountability-bg-overlay"></div>
   <div class="container legal-block">
     <span class="eyebrow">Accountability</span>
     <h2>Where Your Donation Goes</h2>

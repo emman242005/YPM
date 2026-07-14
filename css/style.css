@@ -2163,3 +2163,256 @@ p {
 .vision-2050-tagline p span {
   color: #E8CD8A;
 }
+
+/* ==========================================================================
+   HERO BACKGROUND IMAGE
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg-image {
+  position: absolute;
+  inset: 0;
+  background-image: url('../assets/images/pic.png');
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+.hero-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(248, 246, 240, 0.45);
+  z-index: 1;
+}
+
+.hero .container.hero-inner {
+  position: relative;
+  z-index: 2;
+}
+
+/* ==========================================================================
+   PROGRAMS — PHOTO CARDS
+   ========================================================================== */
+
+.program-card {
+  padding: 0 0 var(--space-md);
+  overflow: hidden;
+}
+
+.program-card-photo {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+  margin-bottom: var(--space-sm);
+}
+
+.program-card h3,
+.program-card p {
+  padding: 0 var(--space-md);
+}
+/* ==========================================================================
+   PROGRAM DETAIL PAGE — LARGER PHOTOS
+   ========================================================================== */
+
+.program-detail-photo {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  display: block;
+  box-shadow: 0 16px 32px rgba(27, 58, 107, 0.12);
+}
+
+@media (max-width: 860px) {
+  .program-detail-photo {
+    height: 220px;
+  }
+}
+
+/* ==========================================================================
+   PROGRAMS PREVIEW SECTION — BACKGROUND IMAGE
+   ========================================================================== */
+
+.section-alt.programs-preview-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.programs-bg-image {
+  position: absolute;
+  inset: 0;
+  background-image: url('../assets/images/pic10.png');
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+.programs-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(239, 234, 224, 0.55);
+  z-index: 1;
+}
+
+.section-alt.programs-preview-section > .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* ==========================================================================
+   ABOUT PAGE HEADER — BACKGROUND IMAGE
+   ========================================================================== */
+
+.page-header.about-header {
+  position: relative;
+  overflow: hidden;
+}
+
+.about-header-bg-image {
+  position: absolute;
+  inset: 0;
+  background-image: url('../assets/images/pic11.png');
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+.about-header-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(239, 234, 224, 0.45);
+  z-index: 1;
+}
+
+.page-header.about-header > .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* ==========================================================================
+   TEACHER TRAINING PAGE HEADER — BACKGROUND IMAGE
+   ========================================================================== */
+
+.page-header.teacher-header {
+  position: relative;
+  overflow: hidden;
+}
+
+.teacher-header-bg-image {
+  position: absolute;
+  inset: 0;
+  background-image: url('../assets/images/pic14.png');
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+.teacher-header-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(239, 234, 224, 0.45);
+  z-index: 1;
+}
+
+.page-header.teacher-header > .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* ==========================================================================
+   TEACHER TRAINING — PILLAR 1 BACKGROUND
+   ========================================================================== */
+
+.pillar-1-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.pillar-1-bg-image {
+  position: absolute;
+  inset: 0;
+  background-image: url('../assets/images/pic15.png');
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+.pillar-1-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(248, 246, 240, 0.45);
+  z-index: 1;
+}
+
+.pillar-1-bg > .training-detail {
+  position: relative;
+  z-index: 2;
+}
+
+/* ==========================================================================
+   TEACHER TRAINING — PILLAR IMAGES (SIDE BY SIDE)
+   ========================================================================== */
+
+.training-detail-with-image {
+  display: grid;
+  grid-template-columns: 140px 1fr 240px;
+  gap: var(--space-lg);
+  align-items: center;
+  max-width: 980px;
+}
+
+.pillar-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 16px 32px rgba(27, 58, 107, 0.12);
+}
+
+@media (max-width: 860px) {
+  .training-detail-with-image {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .pillar-image {
+    max-width: 280px;
+    margin: 0 auto;
+  }
+}
+
+/* ==========================================================================
+   NAV LOGO SPIN-IN + FLOAT ANIMATION
+   ========================================================================== */
+
+@keyframes navLogoSpin {
+  from {
+    transform: rotate(0deg) scale(0.7);
+    opacity: 0;
+  }
+  60% {
+    transform: rotate(380deg) scale(1.08);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes navLogoFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.logo-img.logo-spin-in {
+  animation: navLogoSpin 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.logo-img.logo-float {
+  animation: navLogoFloat 2.6s ease-in-out infinite;
+}
