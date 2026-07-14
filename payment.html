@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment | Young Peacemakers Organization</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/images/logo.png" alt="Young Peacemakers Organization logo" class="logo-img">
+      Young Peacemakers
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Registration Fee</span>
+    <h1>Complete Your Payment</h1>
+    <p class="page-header-lead">A one-time registration fee of 1,000 XAF is required to activate your account.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container signup-wrap">
+    <form id="paymentForm" class="auth-form">
+      <h3>Pay With Mobile Money</h3>
+
+      <label for="momoProvider">Provider</label>
+      <select id="momoProvider" required>
+        <option value="mtn">MTN Mobile Money</option>
+        <option value="orange">Orange Money</option>
+      </select>
+
+      <label for="momoNumber">Mobile Money Number</label>
+      <input type="tel" id="momoNumber" placeholder="6XXXXXXXX" required>
+
+      <button type="submit" class="btn btn-primary" id="paySubmitBtn">Pay 1,000 XAF</button>
+      <p class="form-note" id="paymentNote"></p>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <p>&copy; 2026 Young Peacemakers Organization. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/main.js"></script>
+<script src="js/payment.js"></script>
+</body>
+</html>

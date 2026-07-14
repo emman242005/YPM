@@ -9,7 +9,7 @@ document.body.insertAdjacentHTML('beforeend', `
       <img src="assets/images/logo.png" alt="Young Peacemakers">
       <div>
         <h4>Young Peacemakers</h4>
-        <p>Ask us anything</p>
+        <p id="chatHeaderStatus">Ask us anything</p>
       </div>
       <button class="chat-close-btn" id="chatCloseBtn">✕</button>
     </div>
@@ -27,9 +27,9 @@ document.body.insertAdjacentHTML('beforeend', `
       <input type="text" id="humanName" placeholder="Your name">
       <input type="email" id="humanEmail" placeholder="Your email">
       <textarea id="humanMessage" placeholder="Your message" rows="3"></textarea>
-      <button class="btn btn-primary btn-small" id="humanFormSubmit" style="width:100%;">Send Message</button>
+      <button class="btn btn-primary btn-small" id="humanFormSubmit" style="width:100%;">Start Conversation</button>
     </div>
-    <div class="chat-input-row">
+    <div class="chat-input-row" id="chatInputRow">
       <input type="text" id="chatInput" placeholder="Type a message...">
       <button class="chat-send-btn" id="chatSendBtn">➤</button>
     </div>
@@ -43,9 +43,18 @@ const chatMessages = document.getElementById('chatMessages');
 const chatInput = document.getElementById('chatInput');
 const chatSendBtn = document.getElementById('chatSendBtn');
 const chatQuickReplies = document.getElementById('chatQuickReplies');
+const chatHumanForm = document.getElementById('chatHumanForm');
+const humanFormSubmit = document.getElementById('humanFormSubmit');
+const chatHeaderStatus = document.getElementById('chatHeaderStatus');
+
+let activeConversationId = localStorage.getItem('ypo_conversation_id') || null;
+let pollInterval = null;
 
 chatBubble.addEventListener('click', () => {
   chatWindow.classList.toggle('open');
+  if (chatWindow.classList.contains('open') && activeConversationId) {
+    loadConversation();
+  }
 });
 
 chatCloseBtn.addEventListener('click', () => {
@@ -54,7 +63,7 @@ chatCloseBtn.addEventListener('click', () => {
 
 function addMessage(text, sender) {
   const msg = document.createElement('div');
-  msg.className = `chat-msg ${sender}`;
+  msg.className = `chat-msg ${sender === 'admin' ? 'bot' : sender}`;
   msg.textContent = text;
   chatMessages.appendChild(msg);
   chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -71,12 +80,13 @@ const responses = {
 function showHumanForm() {
   chatQuickReplies.style.display = 'none';
   chatHumanForm.style.display = 'flex';
-  addMessage("Sure! Fill out the form below and our team will get back to you.", 'bot');
+  addMessage("Sure! Fill out the form below to start a conversation with our team.", 'bot');
 }
 
-function hideHumanForm() {
+function switchToThreadMode() {
+  chatQuickReplies.style.display = 'none';
   chatHumanForm.style.display = 'none';
-  chatQuickReplies.style.display = 'flex';
+  chatHeaderStatus.textContent = "Chatting with our team";
 }
 
 function handleQuickReply(topic) {
@@ -115,29 +125,109 @@ humanFormSubmit.addEventListener('click', async () => {
     return;
   }
 
-  const { error } = await supabaseClient.from('support_messages').insert({ name, email, message });
+  const { data: convo, error: convoError } = await supabaseClient
+    .from('conversations')
+    .insert({ visitor_name: name, visitor_email: email })
+    .select()
+    .single();
+
+  if (convoError || !convo) {
+    addMessage("Sorry, something went wrong. Please try our Contact page instead.", 'bot');
+    console.error(convoError);
+    return;
+  }
+
+  activeConversationId = convo.id;
+  localStorage.setItem('ypo_conversation_id', activeConversationId);
+
+  await supabaseClient.from('thread_messages').insert({
+    conversation_id: activeConversationId,
+    sender: 'visitor',
+    content: message
+  });
 
   document.getElementById('humanName').value = '';
   document.getElementById('humanEmail').value = '';
   document.getElementById('humanMessage').value = '';
 
-  if (error) {
-    addMessage("Sorry, something went wrong sending your message. Please try our Contact page instead.", 'bot');
-    console.error(error);
-  } else {
-    addMessage("Thank you! Your message has been sent to our team — we'll get back to you soon.", 'bot');
-  }
+  switchToThreadMode();
+  addMessage("Thanks! Your message has been sent. For the fastest reply, please stay on this page for the next 2-3 minutes — our team is online and typically responds quickly.", 'bot');
 
-  hideHumanForm();
+  startPolling();
 });
 
-function sendMessage() {
+async function loadConversation() {
+  if (!activeConversationId) return;
+
+  const { data: messages, error } = await supabaseClient
+    .from('thread_messages')
+    .select('*')
+    .eq('conversation_id', activeConversationId)
+    .order('created_at', { ascending: true });
+
+  if (error || !messages) return;
+
+  chatMessages.innerHTML = '';
+  messages.forEach(m => addMessage(m.content, m.sender));
+
+  switchToThreadMode();
+  startPolling();
+}
+
+let knownMessageIds = new Set();
+
+function startPolling() {
+  if (pollInterval) clearInterval(pollInterval);
+  pollInterval = setInterval(async () => {
+    if (!activeConversationId) return;
+
+    const { data: messages } = await supabaseClient
+      .from('thread_messages')
+      .select('*')
+      .eq('conversation_id', activeConversationId)
+      .order('created_at', { ascending: true });
+
+    if (!messages) return;
+
+    if (knownMessageIds.size === 0) {
+      messages.forEach(m => knownMessageIds.add(m.id));
+      return;
+    }
+
+    messages.forEach(m => {
+      if (!knownMessageIds.has(m.id)) {
+        knownMessageIds.add(m.id);
+        if (m.sender === 'admin') {
+          addMessage(m.content, 'admin');
+        }
+      }
+    });
+  }, 5000);
+}
+
+async function sendMessage() {
   const text = chatInput.value.trim();
   if (!text) return;
 
-  addMessage(text, 'user');
   chatInput.value = '';
 
+  // If we're already in an active thread, send as a thread message
+  if (activeConversationId) {
+    addMessage(text, 'user');
+    await supabaseClient.from('thread_messages').insert({
+      conversation_id: activeConversationId,
+      sender: 'visitor',
+      content: text
+    });
+    await supabaseClient
+      .from('conversations')
+      .update({ last_message_at: new Date().toISOString() })
+      .eq('id', activeConversationId);
+    return;
+  }
+
+  // Otherwise, fall back to FAQ keyword matching
+  addMessage(text, 'user');
   const lower = text.toLowerCase();
   let matched = false;
 
@@ -169,3 +259,8 @@ chatSendBtn.addEventListener('click', sendMessage);
 chatInput.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') sendMessage();
 });
+
+// On load, if we already have an active conversation, restore it
+if (activeConversationId) {
+  loadConversation();
+}

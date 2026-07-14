@@ -34,6 +34,8 @@ async function updateNotificationCounts() {
   document.getElementById('countTeachers').textContent = pendingTeachers || 0;
 }
 
+let currentAdminName = "Support Team";
+
 async function checkAdmin() {
   const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
   if (userError || !user) {
@@ -42,7 +44,7 @@ async function checkAdmin() {
   }
   const { data: admin, error: adminError } = await supabaseClient
     .from('admins')
-    .select('id')
+    .select('id, full_name')
     .eq('id', user.id)
     .single();
   if (adminError || !admin) {
@@ -50,6 +52,7 @@ async function checkAdmin() {
     window.location.href = "login.html";
     return null;
   }
+  currentAdminName = admin.full_name || "Support Team";
   return user;
 }
 
