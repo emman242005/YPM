@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support Messages | Admin</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container admin-nav-container">
+    <div class="admin-nav-left">
+      <button class="notif-toggle" id="notifToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+        <span class="notif-badge zero" id="notifBadge">0</span>
+      </button>
+      <div class="notif-dropdown" id="notifDropdown">
+        <a href="admin-parents.html" class="notif-item">
+          👨‍👩‍👧 Parent/Child Registrations <span class="notif-count" id="countParents">0</span>
+        </a>
+        <a href="admin-teachers.html" class="notif-item">
+          👩‍🏫 Teacher Registrations <span class="notif-count" id="countTeachers">0</span>
+        </a>
+        <a href="admin-analytics.html" class="notif-item">📊 Analytics</a>
+        <a href="admin-payments.html" class="notif-item">💰 Payments</a>
+        <a href="admin-messages.html" class="notif-item">✉️ Support Messages</a>
+        <button class="notif-item notif-logout" id="logoutBtn">🚪 Log Out</button>
+      </div>
+    </div>
+    <a href="index.html" class="nav-logo">
+      <img src="assets/images/logo.png" alt="Young Peacemakers Organization logo" class="logo-img">
+      Young Peacemakers
+    </a>
+  </div>
+</nav>
+
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Admin Dashboard</span>
+    <h1>✉️ Support Messages</h1>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container dashboard-wrap" style="max-width: 900px;">
+    <div id="messagesPanel">
+      <p class="empty-note">Loading messages...</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <p>&copy; 2026 Young Peacemakers Organization. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/admin-common.js"></script>
+<script src="js/admin-messages.js"></script>
+</body>
+</html>
