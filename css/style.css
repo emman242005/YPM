@@ -302,7 +302,7 @@ p {
   aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: 50%;
-  animation: float 6s ease-in-out infinite;
+  animation: float 3.5s ease-in-out infinite;
   filter: drop-shadow(0 20px 30px rgba(27, 58, 107, 0.2));
 }
 
@@ -1187,14 +1187,7 @@ p {
   display: block;
 }
 
-<div class="notif-dropdown" id="notifDropdown">
-        <a href="admin-parents.html" class="notif-item">
-          👨‍👩‍👧 Parent/Child Registrations <span class="notif-count" id="countParents">0</span>
-        </a>
-        <a href="admin-teachers.html" class="notif-item">
-           👩‍🏫 Teacher Registrations <span class="notif-count" id="countTeachers">0</span>
-        </a>
-      </div>
+
 
 .notif-count {
   background-color: var(--color-bg-alt);
@@ -2480,9 +2473,15 @@ p {
 .announcement-audience-tag {
   display: inline-block;
   background-color: var(--color-bg-alt);
-  color:
+  color: var(--color-brown);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.15rem 0.6rem;
+  border-radius: 100px;
+  margin-left: 0.5rem;
+}
 
-  .reject-reason-box {
+.reject-reason-box {
   margin-top: var(--space-sm);
   padding-top: var(--space-sm);
   border-top: 1px dashed rgba(193, 85, 58, 0.3);
@@ -2505,4 +2504,91 @@ p {
   font-size: 0.9rem;
   margin-bottom: 0.6rem;
   resize: vertical;
+}
+
+/* ==========================================================================
+   GALLERY — VIDEOS
+   ========================================================================== */
+
+.gallery-video-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.gallery-video-card {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background-color: #000;
+  box-shadow: 0 12px 28px rgba(27, 58, 107, 0.12);
+}
+
+.gallery-video-card video,
+.gallery-video-card iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: block;
+  border: none;
+}
+
+.gallery-video-caption {
+  padding: var(--space-sm);
+  background-color: var(--color-white);
+}
+
+.gallery-video-caption h4 {
+  font-size: 0.95rem;
+  margin-bottom: 0.2rem;
+  color: var(--color-navy-dark);
+}
+
+@media (max-width: 700px) {
+  .gallery-video-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   FOOTER — SOCIAL MEDIA ICONS
+   ========================================================================== */
+
+.footer-social {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.footer-social a {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: rgba(248, 246, 240, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-social a svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.footer-social a svg path {
+  fill: #FFFFFF;
+}
+
+.footer-social a:hover {
+  background-color: var(--color-gold);
+  transform: translateY(-3px);
+}
+
+.footer-social a:hover svg path {
+  fill: var(--color-navy-dark);
 }
