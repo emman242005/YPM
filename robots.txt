@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Disallow: /admin-parents.html
+Disallow: /admin-teachers.html
+Disallow: /admin-analytics.html
+Disallow: /admin-payments.html
+Disallow: /admin-messages.html
+Disallow: /admin-announcements.html
+Disallow: /dashboard-parent.html
+Disallow: /dashboard-teacher.html
+Disallow: /payment.html
+
+Sitemap: https://youngpeacemakers.com/sitemap.xml
