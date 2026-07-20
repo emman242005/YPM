@@ -2592,3 +2592,92 @@ p {
 .footer-social a:hover svg path {
   fill: var(--color-navy-dark);
 }
+.donate-card-locked {
+  position: relative;
+  overflow: hidden;
+}
+
+.donate-card-blurred {
+  filter: blur(6px);
+  opacity: 0.35;
+  pointer-events: none;
+  user-select: none;
+}
+
+.coming-soon-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(2px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  border-radius: 28px;
+}
+
+.coming-soon-rings {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  z-index: -1;
+}
+
+.coming-soon-rings span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 2px solid #C9A24C;
+  opacity: 0;
+  animation: comingSoonPulse 3.6s ease-out infinite;
+}
+
+.coming-soon-rings span:nth-child(1) { animation-delay: 0s; }
+.coming-soon-rings span:nth-child(2) { animation-delay: 1.2s; }
+.coming-soon-rings span:nth-child(3) { animation-delay: 2.4s; }
+
+@keyframes comingSoonPulse {
+  0% {
+    width: 10px;
+    height: 10px;
+    opacity: 0.7;
+  }
+  100% {
+    width: 340px;
+    height: 340px;
+    opacity: 0;
+  }
+}
+
+.coming-soon-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  animation: comingSoonFloat 3s ease-in-out infinite;
+}
+
+@keyframes comingSoonFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(-4deg); }
+}
+
+.coming-soon-overlay h3 {
+  font-family: 'Fraunces', serif;
+  font-size: 1.5rem;
+  color: #12253F;
+  margin-bottom: 0.8rem;
+}
+
+.coming-soon-overlay p {
+  font-size: 0.95rem;
+  color: #4A5450;
+  max-width: 340px;
+  margin-bottom: 1.4rem;
+  line-height: 1.5;
+}
