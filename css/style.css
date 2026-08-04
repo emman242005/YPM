@@ -2711,3 +2711,36 @@ p {
   margin-bottom: 1.4rem;
   line-height: 1.5;
 }
+
+/* ==========================================================================
+   NAV LOGO — SCROLLING MARQUEE TEXT
+   ========================================================================== */
+
+.nav-logo-text-wrap {
+  overflow: hidden;
+  width: 130px;
+  white-space: nowrap;
+  position: relative;
+}
+
+.nav-logo-text {
+  display: inline-block;
+  white-space: nowrap;
+  animation: navLogoMarquee 6s linear infinite;
+  padding-left: 100%;
+}
+
+@keyframes navLogoMarquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@media (max-width: 860px) {
+  .nav-logo-text-wrap {
+    width: 100px;
+  }
+}
