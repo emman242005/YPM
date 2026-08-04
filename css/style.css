@@ -2726,7 +2726,7 @@ p {
 .nav-logo-text {
   display: inline-block;
   white-space: nowrap;
-  animation: navLogoMarquee 6s linear infinite;
+  animation: navLogoMarquee 9s linear infinite;
   padding-left: 100%;
 }
 
