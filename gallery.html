@@ -52,11 +52,18 @@
   </div>
 </section>
 
-<!-- GALLERY GRID (auto-loaded from Supabase) -->
+<!-- GALLERY ALBUMS -->
 <section class="section">
   <div class="container">
-    <div class="gallery-grid" id="galleryGrid">
-      <p class="empty-note">Loading photos...</p>
+    <div id="albumView">
+      <div class="album-grid" id="albumGrid">
+        <p class="empty-note">Loading albums...</p>
+      </div>
+    </div>
+    <div id="photoView" style="display:none;">
+      <button class="btn btn-secondary" id="backToAlbumsBtn" style="margin-bottom: var(--space-md);">← Back to Albums</button>
+      <h2 id="currentAlbumTitle" style="margin-bottom: var(--space-md);"></h2>
+      <div class="gallery-grid" id="galleryGrid"></div>
     </div>
   </div>
 </section>
