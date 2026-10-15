@@ -2800,3 +2800,80 @@ p {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* ==========================================================================
+   MISSION CIRCLE (about.html)
+   ========================================================================== */
+.mission-circle-section {
+  padding: var(--space-lg) 0;
+}
+
+.mission-circle {
+  position: relative;
+  width: min(560px, 100%);
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 25%, #24497F 0%, var(--color-navy) 45%, var(--color-navy-dark) 100%);
+  box-shadow: 0 0 0 10px var(--color-bg), 0 0 0 13px var(--color-gold), 0 24px 60px rgba(18, 37, 63, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* thin dashed ring just inside the edge */
+.mission-circle::before {
+  content: '';
+  position: absolute;
+  inset: 18px;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(201, 162, 76, 0.55);
+  pointer-events: none;
+}
+
+.mission-circle-inner {
+  width: 74%;
+  text-align: center;
+  color: var(--color-white);
+}
+
+.mission-circle-eyebrow {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--color-gold);
+}
+
+.mission-circle-inner p {
+  font-family: var(--font-display);
+  font-size: 1.12rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* Too much text for a small circle on phones: it becomes a rounded card instead */
+@media (max-width: 600px) {
+  .mission-circle {
+    aspect-ratio: auto;
+    border-radius: 48px;
+    padding: 2.5rem 1.5rem;
+    box-shadow: 0 0 0 6px var(--color-bg), 0 0 0 8px var(--color-gold), 0 16px 40px rgba(18, 37, 63, 0.2);
+  }
+  .mission-circle::before {
+    inset: 10px;
+    border-radius: 38px;
+  }
+  .mission-circle-inner {
+    width: 100%;
+  }
+  .mission-circle-inner p {
+    font-size: 1rem;
+  }
+}
